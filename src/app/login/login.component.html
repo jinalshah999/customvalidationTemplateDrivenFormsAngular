@@ -1,0 +1,102 @@
+<div class="col-md-6 col-md-offset-4">
+<div class="card">
+  <div class="card-header">
+    <b>Log In</b>
+  </div>
+
+  <div class="card-body">
+    <form (ngSubmit)="login(loginForm)"
+          #loginForm="ngForm"
+          autocomplete="off">
+      <fieldset>
+
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label"
+                 for="userEmailId">User Email</label>
+          <div class="col-md-8">
+            <input class="form-control"
+                   id="userEmaild"
+                   type="text"
+                   appEmailvalidator
+                   placeholder="User Email (required)"
+                   required
+                   ngModel
+                   name="userEmail"
+                   #userEmailVar="ngModel"
+                   [ngClass]="{'is-invalid': (userEmailVar.touched || userEmailVar.dirty) && !userEmailVar.valid }" />
+            <span class="invalid-feedback">
+              <span *ngIf="userEmailVar.hasError('required')">
+                User email is required.
+              </span>
+              <span *ngIf="userEmailVar.hasError('emailvalidator')">
+                Please provide a valid email address
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-2 col-form--label"
+                 for="passwordId">Password</label>
+
+          <div class="col-md-8">
+            <input class="form-control"
+                   id="passwordId"
+                   type="password"
+                   placeholder="Password (required)"
+                   required
+                   ngModel
+                   name="passwordVar"
+                   #passwordVar="ngModel"
+                   [ngClass]="{'is-invalid': (passwordVar.touched || passwordVar.dirty) && !passwordVar.valid }" />
+            <span class="invalid-feedback">
+              <span *ngIf="passwordVar.hasError('required')">
+                Password is required.
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-2 col-form--label"
+                 for="passwordId">Confirm Password</label>
+
+          <div class="col-md-8">
+          <input class="form-control"
+                 id="CnfrmPasswordId"
+                 type="password"
+                 placeholder="Confirm Password (required)"
+                 required
+                 appPasswordvalidator = "passwordVar"
+                 ngModel
+                 name="CnfmPasswordVar"
+                 #CnfmPasswordVar="ngModel"
+                 [ngClass]="{'is-invalid': (CnfmPasswordVar.touched || CnfmPasswordVar.dirty) && !CnfmPasswordVar.valid }" />
+            <span class="invalid-feedback">
+            <span *ngIf="CnfmPasswordVar.hasError('required')">
+              Confirm Password is required.
+            </span>
+            <span *ngIf="CnfmPasswordVar.hasError('passwordMatchError')">
+              Confirm Password & Password must be same.
+            </span>
+          </span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4 offset-md-2">
+            <button class="btn btn-primary mr-3"
+                    type="submit"
+                    style="width:80px"
+                    [disabled]="!loginForm.valid">
+              Log In
+            </button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+
+<div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
+</div>
